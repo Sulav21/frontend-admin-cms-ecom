@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
-import { postCategoryAction } from "../../pages/categories/CategoryAction";
+import { updateCategoryAction } from "../../pages/categories/CategoryAction";
+import { MyVerticallyCenteredModal } from "../modal/Modal";
 
 const initialState = {
   status:"inactive",
   parentCatId: "",
   catName: "",
 };
-export const CategoryForm = () => {
+export const EditCategory = ({selectedCat}) => {
+    console.log(selectedCat)
   const dispatch= useDispatch()
-  const [form, setForm] = useState(initialState);
+  const [form, setForm] = useState(selectedCat);
   const {categories} =useSelector(state=>state.category)
   const handleOnChange = (e) => {
     let { name, value,checked } = e.target;
@@ -26,15 +28,22 @@ export const CategoryForm = () => {
     });
   };
 
+  useEffect(() => {
+    setForm(selectedCat)
+  }, [selectedCat])
+  
   const handleOnSubmit = (e) => {
-    e.preventDefault();
-    const parentCatId = form.parentCatId ? form.parentCatId:undefined
-    console.log(form);
-    dispatch(postCategoryAction({...form, parentCatId}))
-   
-  };
+    e.preventDefault();     
+    const {parentCatId,catName,status,_id} = form
+    // dispatch action to update the category
+    // console.log(form);
+    dispatch(updateCategoryAction({_id,parentCatId,catName,status}))
 
+   console.log(form)
+  };
+ 
   return (
+    <MyVerticallyCenteredModal  title="Edit Category" >
     <Form className="py-5" onSubmit={handleOnSubmit}>
       <Row className="g-3">
         <Col md='2'>
@@ -45,7 +54,8 @@ export const CategoryForm = () => {
         onChange={handleOnChange}
         id="custom-switch"
         label="Status"
-      
+        checked = {form.status === 'active'}
+
       />
         </Col>
         <Col md="4">
@@ -56,8 +66,10 @@ export const CategoryForm = () => {
             onChange={handleOnChange}
             >
               <option value="">..Select Parent Category..</option>
+              
+
               {categories.map((item)=>
-              !item.parentCatId && (<option key={item._id} value={item._id} selected={item._id===form.parentCatId}>{item.catName} </option>
+              !item.parentCatId && (<option key={item._id} value={item._id}>{item.catName}</option>
               ))}
              
             </Form.Select>
@@ -69,12 +81,14 @@ export const CategoryForm = () => {
             onChange={handleOnChange}
             placeholder="Category name"
             required
+            value={form.catName}
           />
         </Col>
         <Col md="3">
-          <Button type="submit">Add Category</Button>
+          <Button type="submit">Update Category</Button>
         </Col>
       </Row>
     </Form>
+    </MyVerticallyCenteredModal>
   );
 };

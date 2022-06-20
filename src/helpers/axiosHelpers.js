@@ -64,4 +64,7 @@ export const postCategories =  (dataObj) =>{
     }
     
   
-  
+    export const updateCategory =  (dataObj) =>{
+      const url = catAPI
+      return apiProcessor({method:'put',url,dataObj})
+      }

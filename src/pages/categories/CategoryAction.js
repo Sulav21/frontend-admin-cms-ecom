@@ -1,4 +1,4 @@
-import { getCategories, postCategories,deleteCategory } from "../../helpers/axiosHelpers";
+import { getCategories, postCategories,deleteCategory,updateCategory } from "../../helpers/axiosHelpers";
 import { setCategories } from "./CategorySlice";
 import {toast} from 'react-toastify'
 
@@ -29,3 +29,14 @@ export const deleteCategoryAction = (_id) =>async dispatch =>{
    toast [result.status](result.message)
    result.status === 'success' && dispatch(fetchCategoriesAction())
  }
+
+ 
+export const updateCategoryAction = catObj =>async dispatch =>{
+  const response =  updateCategory(catObj)
+  toast.promise(response,{
+   pending: "Please wait ....."
+  })
+ const result = await response
+ toast [result.status](result.message)
+ result.status === 'success' && dispatch(fetchCategoriesAction())
+}

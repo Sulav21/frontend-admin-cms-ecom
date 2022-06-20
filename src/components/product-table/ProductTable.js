@@ -6,12 +6,8 @@ import {
   deleteCategoryAction,
   fetchCategoriesAction,
 } from "../../pages/categories/CategoryAction";
-import { EditCategory } from "../cat-form/EditCategory";
-import { MyVerticallyCenteredModal } from "../modal/Modal";
-import { toggleModal } from "../system-state/systemSlice";
 
-export const CategoryTable = () => {
-  const [selectedCat, setSelectedCat] = useState({});
+export const ProductTable = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
   useEffect(() => {
@@ -24,17 +20,14 @@ export const CategoryTable = () => {
     }
   };
 
-  const handleOnEdit = (cat) => {
-    setSelectedCat(cat);
-    dispatch(toggleModal());
-  };
+  
 
   const parentCats = categories.filter((item) => !item.parentCatId);
   const childCats = categories.filter((item) => item.parentCatId);
 
   return (
     <div>
-      <EditCategory selectedCat={selectedCat} />
+
       <p>{categories.length} Categories found ! </p>
 
       <Table striped>
@@ -66,7 +59,7 @@ export const CategoryTable = () => {
                   <td>
                     <Button
                       variant="warning"
-                      onClick={() => handleOnEdit(item)}
+                      
                     >
                       Edit{" "}
                     </Button>{" "}
@@ -98,13 +91,13 @@ export const CategoryTable = () => {
                  <td>
                    <Button
                      variant="warning"
-                     onClick={() => handleOnEdit(cat)}
+            
                    >
                      Edit{" "}
                    </Button>{" "}
                    <Button
                      variant="danger"
-                     onClick={() => handleOnDelete(cat._id)}
+                     onClick={() => handleOnDelete(item._id)}
                    >
                      {" "}
                      Delete
