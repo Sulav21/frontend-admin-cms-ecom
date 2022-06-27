@@ -14,6 +14,8 @@ import { Dashboard } from './pages/dashboard/Dashboard';
 import { AdminProfile } from './pages/admin-profile/AdminProfile';
 import { Categories } from './pages/categories/Categories';
 import { Product } from './pages/product/Product';
+import { NewProduct } from './pages/product/NewProduct';
+import { EditProduct } from './pages/product/EditProduct';
 
 const App=()=>  {
   return (
@@ -25,6 +27,10 @@ const App=()=>  {
         <Route path='/admin-profile' element={<AdminProfile/>}/>
         <Route path='/categories' element={<Categories/>}/>
         <Route path='/products' element={<Product/>}/>
+        <Route path='/product/new' element={<NewProduct/>}/>
+        <Route path='/product/edit/:_id' element={<EditProduct/>}/>
+
+
       <Route path='/' element={<LoginPage/>} />
         <Route path='/register' element={<RegistrationPage/>} />
         <Route path='/admin/verify-email' element={<EmailVerification/>} />

@@ -1,117 +1,125 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button,Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
-  deleteCategoryAction,
-  fetchCategoriesAction,
-} from "../../pages/categories/CategoryAction";
+  deleteProductAction,
+  fetchProductsAction,
+} from "../../pages/product/productAction";
 
 export const ProductTable = () => {
   const dispatch = useDispatch();
-  const { categories } = useSelector((state) => state.category);
+  const { products } = useSelector((state) => state.product);
+
+  const [ids,setIds]=useState([])
+
+  const handleOnSelect = e =>{
+   const {checked, value} = e.target
+  
+   if(value==='all'){
+    if(checked){
+      const allIds = products.map(item=>item._id)
+      setIds(allIds)
+    
+    }else{
+      setIds([])
+    }
+    return
+   }
+
+  //  Individual Click
+ checked 
+ ? setIds([...ids,value]) 
+ :setIds(ids.filter((id)=>id !== value))
+  }
+console.log(ids)
   useEffect(() => {
-    dispatch(fetchCategoriesAction());
+    dispatch(fetchProductsAction());
   }, []);
 
-  const handleOnDelete = (_id) => {
-    if (window.confirm("Are you sure you want to delete this category ?")) {
-      dispatch(deleteCategoryAction(_id));
-    }
-  };
-
-  
-
-  const parentCats = categories.filter((item) => !item.parentCatId);
-  const childCats = categories.filter((item) => item.parentCatId);
-
   return (
-    <div>
-
-      <p>{categories.length} Categories found ! </p>
+    <div style={{ overflowX: "scroll" }}>
+      <p>{products.length} Products found ! </p>
 
       <Table striped>
         <thead>
           <tr>
-            {/* <th>#</th> */}
-            <th>Name</th>
+            <th>
+            <Form.Check
+                    name="status"
+                    onChange={handleOnSelect}
+                    value='all'
+                    id="custom-switch"
+                  />
+            </th>
+            <th>#</th>
             <th>Status</th>
+            <th>Name</th>
+            <th>QTY</th>
+            <th>Price</th>
+            <th>Sales Price</th>
+            <th>Sales Date</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {parentCats.map((item, i) =>(
+          {products.map((item, i) => (
             <>
-               <tr key={item._id}>
-                  {/* <td>{i + 1}</td> */}
-                  <td>
-                    {item.parentCatId && "➡"}
-                    {item.catName}
-                  </td>
-                  <td
-                    className={
-                      item.status === "active" ? "text-success" : "text-danger"
-                    }
-                  >
-                    {item.status}
-                  </td>
-
-                  <td>
-                    <Button
-                      variant="warning"
-                      
-                    >
-                      Edit{" "}
-                    </Button>{" "}
-                    <Button
-                      variant="danger"
-                      onClick={() => handleOnDelete(item._id)}
-                    >
-                      {" "}
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-               {childCats.map((cat,index)=>{
-                if(cat.parentCatId===item._id){
-                 return  <tr key={cat._id}>
-                 {/* <td>{i + 1}</td> */}
-                 <td>
-                   {cat.parentCatId && "➡"}
-                   {cat.catName}
-                 </td>
-                 <td
-                   className={
-                     cat.status === "active" ? "text-success" : "text-danger"
-                   }
-                 >
-                   {cat.status}
-                 </td>
-
-                 <td>
-                   <Button
-                     variant="warning"
-            
-                   >
-                     Edit{" "}
-                   </Button>{" "}
-                   <Button
-                     variant="danger"
-                     onClick={() => handleOnDelete(item._id)}
-                   >
-                     {" "}
-                     Delete
-                   </Button>
-                 </td>
-               </tr>
-                }
-               }) }
-
-               </>
+              <tr key={item._id}>
+                <td>
+                <Form.Check
+                    name="status"
+                    onChange={handleOnSelect}
+                    value={item._id}
+                    checked={ids.includes(item._id)}
+                    id="custom-switch"
+                  />
+                </td>
               
-         ) ) }
+                <td>
+                  {i + 1}{" "}
+                </td>
+                <td
+                  className={
+                    item.status === "active" ? "text-success" : "text-danger"
+                  }
+                >
+                  {item.status}
+                </td>
+                <td>{item.name}</td>
+                <td>{item.qty}</td>
+                <td>${item.price.toLocaleString()}</td>
+                <td>{item.salesPrice || "-"}</td>
+                <td>
+                  {item.salesStartDate
+                    ? new Date(item.salesStartDate).toLocaleDateString() +
+                      "-" +
+                      new Date(item.salesEndDate).toLocaleDateString()
+                    : "-"}
+                </td>
+
+                <td>
+                 <Link to={`/product/edit/${item._id}`}><Button variant="warning">Edit </Button>{" "}</Link> 
+                </td>
+              </tr>
+            </>
+          ))}
         </tbody>
       </Table>
+      <div>
+        {ids.length>0 &&(
+        <Button
+        variant="danger"
+        onClick={()=>dispatch(deleteProductAction(ids))&& setIds([])}
+      >
+        {" "}
+        Delete
+      </Button>
+       ) }
+      
+      </div>
+
     </div>
   );
 };
