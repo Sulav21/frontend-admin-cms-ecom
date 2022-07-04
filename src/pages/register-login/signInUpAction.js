@@ -12,7 +12,7 @@ export const postUserAction= (user) => async (dispatch) =>{
 
     toast.promise(promiseData,{
         pending:"Please wait....",
-       
+        
     })
 
     const data = await promiseData

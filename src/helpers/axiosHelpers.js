@@ -4,6 +4,7 @@ const rootUrlApi = "http://localhost:8000/api/v1";
 const adminEp = rootUrlApi + "/admin";
 const catAPI = rootUrlApi + "/category";
 const productAPI = rootUrlApi + "/products";
+const paymentMethodAPI = rootUrlApi +'/payment-method'
 
 // Admin APIS
 
@@ -40,6 +41,11 @@ export const postUserVerification = (dataObj) => {
 export const LoginUser = (dataObj) => {
   const url = adminEp + "/login";
   return apiProcessor({ method: "post", url, dataObj });
+};
+
+export const updateAdminUser = (dataObj) => {
+  const url = adminEp;
+  return apiProcessor({ method: "put", url, dataObj });
 };
 
 // Categories API
@@ -90,3 +96,29 @@ export const updateProduct = (dataObj) => {
   const url = productAPI;
   return apiProcessor({ method: "put", url, dataObj });
 };
+
+// ====payment methods
+
+// Get payment method
+export const getPaymentMethods=(_id)=>{
+  const url = _id ? paymentMethodAPI+"/"+_id : paymentMethodAPI
+  return apiProcessor({ method: "get", url });
+}
+
+// Post payment method
+export const postPaymentMethod=(dataObj)=>{
+  const url = paymentMethodAPI
+  return apiProcessor({ method: "post", url,dataObj });
+}
+
+// delete payment method
+export const deletePaymentMethod=(_id)=>{
+  const url = paymentMethodAPI+"/"+_id
+  return apiProcessor({ method: "delete", url });
+}
+
+// update payment method
+export const updatePaymentMethod=(dataObj)=>{
+  const url = paymentMethodAPI
+  return apiProcessor({ method: "put", url,dataObj });
+}
