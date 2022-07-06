@@ -75,6 +75,10 @@ dispatch(postLoginUser({email,password}))
             )}
           </Button>
         </Form>
+        <div className="text-end">
+          Forgot Password?
+          <a href="/forgot-password">Reset Password</a> Now.
+        </div>
       </div>
     </Container>
   );

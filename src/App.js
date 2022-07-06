@@ -17,6 +17,7 @@ import { Product } from './pages/product/Product';
 import { NewProduct } from './pages/product/NewProduct';
 import { EditProduct } from './pages/product/EditProduct';
 import { PaymentMethod } from './pages/payment-method/PaymentMethod';
+import { ResetPassword } from './pages/register-login/ResetPassword';
 
 const App=()=>  {
   return (
@@ -31,7 +32,11 @@ const App=()=>  {
         <Route path='/product/new' element={<NewProduct/>}/>
         <Route path='/product/edit/:_id' element={<EditProduct/>}/>
         <Route path='/payments' element={<PaymentMethod/>}/>
+
+        {/* Public Routes */}
       <Route path='/' element={<LoginPage/>} />
+      <Route path='/forgot-password' element={<ResetPassword/>} />
+
         <Route path='/register' element={<RegistrationPage/>} />
         <Route path='/admin/verify-email' element={<EmailVerification/>} />
         <Route path='*' element={<h1>404 Page not found</h1>} />

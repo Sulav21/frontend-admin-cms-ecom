@@ -48,6 +48,15 @@ export const updateAdminUser = (dataObj) => {
   return apiProcessor({ method: "put", url, dataObj });
 };
 
+export const requestOtp = (dataObj) => {
+  const url = adminEp+'/otp-request'
+  return apiProcessor({ method: "post", url, dataObj });
+};
+
+export const updatePassword = (dataObj) => {
+  const url = adminEp+"/password"
+  return apiProcessor({ method: "patch", url, dataObj });
+};
 // Categories API
 
 export const getCategories = () => {

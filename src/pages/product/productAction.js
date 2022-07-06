@@ -47,5 +47,7 @@ export const updateProductAction = catObj =>async dispatch =>{
   })
  const result = await response
  toast [result.status](result.message)
- result.status === 'success' && dispatch(fetchProductsAction())
+//  result.status === 'success' && dispatch(fetchProductsAction())
+ result.status === 'success' && dispatch(setSelectedProduct(result))
+
 }

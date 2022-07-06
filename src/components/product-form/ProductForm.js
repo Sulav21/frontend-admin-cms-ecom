@@ -13,6 +13,7 @@ export const ProductForm = () => {
     dispatch(fetchCategoriesAction());
   }, []);
 
+
   const initialState = {
     CatId: "",
     description: "asd  dsfsaf fsdsda f fasfasdf",
@@ -27,6 +28,7 @@ export const ProductForm = () => {
   };
 
   const [form, setForm] = useState(initialState);
+  const [images, setImages] = useState([])
 
   const handleOnChange = (e) => {
     let { checked, name, value } = e.target;
@@ -38,10 +40,21 @@ export const ProductForm = () => {
     });
   };
 
+  const handleOnImage=e=>{
+    const {files} = e.target
+    console.log(files)
+    setImages(files)
+  }
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(form);
-    dispatch(postProductAction(form))
+    const formData = new FormData()
+  for(const key in form){
+    formData.append(key,form[key])
+  }
+
+  images.length &&  [...images].map(img=>formData.append("images", img))
+    dispatch(postProductAction(formData))
   };
 
   const inputFields = [
@@ -96,6 +109,13 @@ export const ProductForm = () => {
       rows: 10,
       required: true,
     },
+    {
+      name: "images",
+      type:'file',
+      multiple: true,
+      accept: 'image/*',
+      required:true,
+    },
   ];
   return (
     <Form onSubmit={handleOnSubmit} className="mb-4">
@@ -128,7 +148,7 @@ export const ProductForm = () => {
       </Form.Group>
 
       {inputFields.map((item, i) => {
-        return <CustomInput key={i} {...item} onChange={handleOnChange}/>;
+        return <CustomInput key={i} {...item} onChange={item.name==='images'? handleOnImage:handleOnChange}/>;
       })}
 
       <Button variant="primary" type="submit">

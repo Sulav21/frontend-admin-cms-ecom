@@ -13,6 +13,13 @@ export const ProductTable = () => {
   const { products } = useSelector((state) => state.product);
 
   const [ids,setIds]=useState([])
+  const handleOnDelete = (_id) => {
+    if (window.confirm("Are you sure you want to delete this products ?")) {
+      dispatch(deleteProductAction(ids))
+      setIds([])
+    }
+  };
+
 
   const handleOnSelect = e =>{
    const {checked, value} = e.target
@@ -111,7 +118,7 @@ console.log(ids)
         {ids.length>0 &&(
         <Button
         variant="danger"
-        onClick={()=>dispatch(deleteProductAction(ids))&& setIds([])}
+        onClick={()=>handleOnDelete(ids)}
       >
         {" "}
         Delete
