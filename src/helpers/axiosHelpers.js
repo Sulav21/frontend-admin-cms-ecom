@@ -52,9 +52,15 @@ export const requestOtp = (dataObj) => {
   const url = adminEp+'/otp-request'
   return apiProcessor({ method: "post", url, dataObj });
 };
-
+// reset password
 export const updatePassword = (dataObj) => {
   const url = adminEp+"/password"
+  return apiProcessor({ method: "patch", url, dataObj });
+};
+
+// update password from admin profile
+export const updateAdminPasswordFromProfile = (dataObj) => {
+  const url = adminEp+"/update-password"
   return apiProcessor({ method: "patch", url, dataObj });
 };
 // Categories API

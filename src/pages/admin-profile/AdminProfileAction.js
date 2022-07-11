@@ -2,6 +2,7 @@ import {
   updateAdminUser,
   requestOtp,
   updatePassword,
+  updateAdminPasswordFromProfile,
 } from "../../helpers/axiosHelpers";
 import {
   setUser,
@@ -37,3 +38,13 @@ export const resetPassAction = (obj) => async (dispatch) => {
 
   toast[status](message);
 };
+
+export const updatePassAction = (obj) => async (dispatch) => {
+  const promiseResponse = updateAdminPasswordFromProfile(obj);
+  toast.promise(promiseResponse, { pending: "Please wait ..." });
+
+  const { status,message } = await promiseResponse;
+
+  toast[status](message);
+};
+
