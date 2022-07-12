@@ -3,12 +3,14 @@ import { Form, Button, Container, Spinner } from "react-bootstrap";
 import "./loginForm.css";
 import { useDispatch, useSelector } from "react-redux";
 import { postLoginUser } from "../../pages/register-login/signInUpAction";
-import {Link,useNavigate} from 'react-router-dom'
+import {Link,useLocation,useNavigate} from 'react-router-dom'
 
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
+  const location = useLocation()
+  const origin = (location.state&& location.state.from&&location.state.from.pathname) || '/dashboard'
   // const [form, setForm] = useState(initialState);
   // const [error, setError] = useState(false);
 
@@ -20,7 +22,7 @@ export const LoginForm = () => {
   const passRef= useRef()
 
   useEffect(() => {
-    user._id && navigate('/dashboard')
+    user._id && navigate(origin)
   
   }, [user])
   

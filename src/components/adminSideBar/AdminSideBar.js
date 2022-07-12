@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleSidebar } from "../system-state/systemSlice";
 import { ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { adminLogout } from "../../pages/register-login/signInUpAction";
 
 export const AdminSideBar = () => {
   const dispatch = useDispatch();
@@ -72,8 +73,8 @@ export const AdminSideBar = () => {
                 <i class="fa-solid fa-gears"></i> Settings
               </Link>
             </ListGroup.Item>
-            <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
-              <Link className="nav-link" to="/settings">
+            <ListGroup.Item onClick={() => dispatch(adminLogout())}>
+              <Link className="nav-link" to="#">
                 <i class="fa-solid fa-right-from-bracket"></i> Logout
               </Link>
             </ListGroup.Item>
