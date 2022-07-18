@@ -19,6 +19,7 @@ import { EditProduct } from './pages/product/EditProduct';
 import { PaymentMethod } from './pages/payment-method/PaymentMethod';
 import { ResetPassword } from './pages/register-login/ResetPassword';
 import { PrivateRoute } from './components/private-route/PrivateRoute';
+import { Settings } from './pages/settings/Settings';
 
 const App=()=>  {
   return (
@@ -34,6 +35,8 @@ const App=()=>  {
         <Route path='/product/edit/:_id' element={<PrivateRoute><EditProduct/></PrivateRoute>}/>
         <Route path='/payments' element={<PrivateRoute><PaymentMethod/></PrivateRoute>}/>
         <Route path='/register' element={<PrivateRoute><RegistrationPage/></PrivateRoute>} />
+        <Route path='/settings' element={<PrivateRoute><Settings/></PrivateRoute>} />
+
 
         {/* Public Routes */}
       <Route path='/' element={<LoginPage/>} />

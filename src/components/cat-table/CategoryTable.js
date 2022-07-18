@@ -7,7 +7,6 @@ import {
   fetchCategoriesAction,
 } from "../../pages/categories/CategoryAction";
 import { EditCategory } from "../cat-form/EditCategory";
-import { MyVerticallyCenteredModal } from "../modal/Modal";
 import { toggleModal } from "../system-state/systemSlice";
 
 export const CategoryTable = () => {
@@ -19,7 +18,7 @@ export const CategoryTable = () => {
   }, []);
 
   const handleOnDelete = (_id) => {
-    if (window.confirm("Are you sure you want to delete this category ?")) {
+    if (window.confirm("Are you sure you want to delete this data ?")) {
       dispatch(deleteCategoryAction(_id));
     }
   };

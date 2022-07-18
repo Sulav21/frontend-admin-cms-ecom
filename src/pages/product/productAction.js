@@ -8,7 +8,7 @@ export const fetchProductsAction=()=>async(dispatch)=>{
 
     const {status,products} = await getProducts()
 
-    status === 'success' && dispatch(setProducts(products))
+    status === 'success' && products.length && dispatch(setProducts(products))
 }
 
 export const fetchSingleProductAction=(_id)=>async(dispatch)=>{

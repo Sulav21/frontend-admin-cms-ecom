@@ -1,10 +1,8 @@
-import React, {useRef,useEffect,useState} from "react";
+import React, {useState} from "react";
 import { Form, Button, Container, Spinner,Alert } from "react-bootstrap";
 import "./resetPassword.css";
 import { useDispatch, useSelector } from "react-redux";
-import { postLoginUser } from "../../pages/register-login/signInUpAction";
-import {Link,useNavigate} from 'react-router-dom'
-import { requestPassResetOTPAction } from "../../pages/admin-profile/AdminProfileAction";
+
 import {resetPassAction} from '../../pages/admin-profile/AdminProfileAction'
 const initialState ={
   otp:"",

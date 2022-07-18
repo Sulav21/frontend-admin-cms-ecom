@@ -7,11 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCategoryAction } from "../../pages/categories/CategoryAction";
 import { MyVerticallyCenteredModal } from "../modal/Modal";
 
-const initialState = {
-  status:"inactive",
-  parentCatId: "",
-  catName: "",
-};
 export const EditCategory = ({selectedCat}) => {
     console.log(selectedCat)
   const dispatch= useDispatch()

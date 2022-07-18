@@ -16,7 +16,7 @@ export const AdminProfile = () => {
   const [passUpdateForm, setPassUpdateForm] = useState(passInitialState)
   const [error, setError] = useState("")
   const [disableBtn, setDisableBtn] = useState(true)
-  const { user,passResettingEmail} = useSelector((state) => state.admin);
+  const { user} = useSelector((state) => state.admin);
 
   useEffect(() => {
     setForm(user);

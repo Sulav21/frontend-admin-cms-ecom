@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleSidebar } from "../system-state/systemSlice";
