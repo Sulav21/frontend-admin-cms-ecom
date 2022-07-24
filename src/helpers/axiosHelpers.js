@@ -5,6 +5,12 @@ const rootUrlApi = "http://localhost:8000/api/v1";
 const adminEp = rootUrlApi + "/admin";
 const catAPI = rootUrlApi + "/category";
 const productAPI = rootUrlApi + "/products";
+const customerAPI = rootUrlApi + "/customers";
+const reviewAPI = rootUrlApi + "/reviews";
+const ordersAPI = rootUrlApi + "/orders";
+
+
+
 const paymentMethodAPI = rootUrlApi + "/payment-method";
 
 // Admin APIS
@@ -21,24 +27,22 @@ const apiProcessor = async ({ method, url, dataObj, headers }) => {
   } catch (err) {
     console.log(err);
     let message = err.message;
-    if(err.response && err.response.status===401){
-      sessionStorage.removeItem('accessJWT')
-      localStorage.removeItem('refreshJWT')
+    if (err.response && err.response.status === 401) {
+      sessionStorage.removeItem("accessJWT");
+      localStorage.removeItem("refreshJWT");
       return {
-        status:"error",
-        message:"Unauthenticated"
-      }
+        status: "error",
+        message: "Unauthenticated",
+      };
     }
     if (err.response && err.response.data) {
       message = err.response.data.message;
-      
     }
 
     if (message === "jwt expired!") {
       // call the api to get new jwt and re-call the api processor itself
-     const accessJWT = await requestNewAccessJWT()
+      const accessJWT = await requestNewAccessJWT();
       if (accessJWT) {
-        
         return apiProcessor({
           method,
           url,
@@ -57,17 +61,17 @@ const apiProcessor = async ({ method, url, dataObj, headers }) => {
   }
 };
 
-export const requestNewAccessJWT=async()=>{
+export const requestNewAccessJWT = async () => {
   const { accessJWT } = await apiProcessor({
     method: "get",
-    url: adminEp+"/accessjwt",
+    url: adminEp + "/accessjwt",
     headers: {
       Authorization: localStorage.getItem("refreshJWT"),
     },
   });
   sessionStorage.setItem("accessJWT", accessJWT);
-  return accessJWT
-}
+  return accessJWT;
+};
 export const getAdminUser = () => {
   const url = adminEp;
   return apiProcessor({
@@ -290,6 +294,44 @@ export const updatePaymentMethod = (dataObj) => {
     method: "put",
     url,
     dataObj,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
+};
+
+// customers api's
+
+export const getCustomers = (_id) => {
+  const url = _id ? customerAPI + "/" + _id : customerAPI;
+  return apiProcessor({
+    method: "get",
+    url,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
+};
+
+// reviews api's
+
+export const getReviews = (_id) => {
+  const url = _id ? reviewAPI + "/" + _id : reviewAPI;
+  return apiProcessor({
+    method: "get",
+    url,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
+};
+
+// orders api
+export const getOrders = (_id) => {
+  const url = _id ? ordersAPI + "/" + _id : ordersAPI;
+  return apiProcessor({
+    method: "get",
+    url,
     headers: {
       Authorization: sessionStorage.getItem("accessJWT"),
     },

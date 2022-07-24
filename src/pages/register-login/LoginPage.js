@@ -11,7 +11,6 @@ export const LoginPage = () => {
     useEffect(() => {
       !user._id && dispatch(autoAdminLogin())
     
-    
     }, [user._id])
   return (
     <DefaultLayout><LoginForm/></DefaultLayout>

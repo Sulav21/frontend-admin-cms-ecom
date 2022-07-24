@@ -20,6 +20,9 @@ import { PaymentMethod } from './pages/payment-method/PaymentMethod';
 import { ResetPassword } from './pages/register-login/ResetPassword';
 import { PrivateRoute } from './components/private-route/PrivateRoute';
 import { Settings } from './pages/settings/Settings';
+import { Customers } from './pages/customers/Customers';
+import { Review } from './pages/review/Review';
+import { Orders } from './pages/orders/Orders';
 
 const App=()=>  {
   return (
@@ -31,6 +34,9 @@ const App=()=>  {
         <Route path='/admin-profile' element={<PrivateRoute><AdminProfile/></PrivateRoute>}/>
         <Route path='/categories' element={<PrivateRoute><Categories/></PrivateRoute>}/>
         <Route path='/products' element={<PrivateRoute><Product/></PrivateRoute>}/>
+        <Route path='/customers' element={<PrivateRoute><Customers/> </PrivateRoute>}/>
+        <Route path='/orders' element={<PrivateRoute><Orders/> </PrivateRoute>}/>
+        <Route path='/reviews' element={<PrivateRoute><Review/>  </PrivateRoute>}/>
         <Route path='/product/new' element={<PrivateRoute><NewProduct/></PrivateRoute>}/>
         <Route path='/product/edit/:_id' element={<PrivateRoute><EditProduct/></PrivateRoute>}/>
         <Route path='/payments' element={<PrivateRoute><PaymentMethod/></PrivateRoute>}/>

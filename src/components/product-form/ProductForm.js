@@ -138,7 +138,7 @@ export const ProductForm = () => {
           <option value="">..Select Parent Category..</option>
           {categories.map(
             (item) =>
-              !item.parentCatId && (
+              item.parentCatId && (
                 <option key={item._id} value={item._id}>
                   {item.catName}{" "}
                 </option>
