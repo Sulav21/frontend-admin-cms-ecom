@@ -23,6 +23,7 @@ import { Settings } from './pages/settings/Settings';
 import { Customers } from './pages/customers/Customers';
 import { Review } from './pages/review/Review';
 import { Orders } from './pages/orders/Orders';
+import { OrderDetails } from './pages/orders/OrderDetails';
 
 const App=()=>  {
   return (
@@ -36,6 +37,7 @@ const App=()=>  {
         <Route path='/products' element={<PrivateRoute><Product/></PrivateRoute>}/>
         <Route path='/customers' element={<PrivateRoute><Customers/> </PrivateRoute>}/>
         <Route path='/orders' element={<PrivateRoute><Orders/> </PrivateRoute>}/>
+        <Route path='/orders/:_id' element={<PrivateRoute><OrderDetails/>  </PrivateRoute>}/>
         <Route path='/reviews' element={<PrivateRoute><Review/>  </PrivateRoute>}/>
         <Route path='/product/new' element={<PrivateRoute><NewProduct/></PrivateRoute>}/>
         <Route path='/product/edit/:_id' element={<PrivateRoute><EditProduct/></PrivateRoute>}/>
