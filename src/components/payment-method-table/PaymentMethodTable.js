@@ -43,7 +43,7 @@ export const PaymentMethodTable = ({showForm,setShowForm}) => {
                 <Button variant="info" title='Edit' onClick={()=>handleOnEdit(item._id)}><i class="fa-solid fa-pen-to-square"></i></Button>{" "}
                 <Button variant="danger" title='Delete' onClick={()=> window.confirm("Are you sure you want to delete the payment method ?") && dispatch(deleteFetchPaymentMethod(item._id))}><i class="fa-solid fa-trash-can"></i></Button>
                 {""}
-              </td>s
+              </td>
             </tr>
           ))}
         </tbody>
