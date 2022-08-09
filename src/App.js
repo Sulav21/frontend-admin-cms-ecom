@@ -42,7 +42,11 @@ const App=()=>  {
         <Route path='/product/new' element={<PrivateRoute><NewProduct/></PrivateRoute>}/>
         <Route path='/product/edit/:_id' element={<PrivateRoute><EditProduct/></PrivateRoute>}/>
         <Route path='/payments' element={<PrivateRoute><PaymentMethod/></PrivateRoute>}/>
-        <Route path='/register' element={<PrivateRoute><RegistrationPage/></PrivateRoute>} />
+        <Route path='/register' element={
+        // <PrivateRoute>
+          <RegistrationPage/>
+        // </PrivateRoute>
+      } />
         <Route path='/settings' element={<PrivateRoute><Settings/></PrivateRoute>} />
 
 
